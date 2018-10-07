@@ -51,5 +51,5 @@ public class Deed {
 
     public boolean getCompleted() { return completed; }
 
-    public void setCompleted() { this.completed = completed; }
+    public void setCompleted(boolean completed) { this.completed = completed; }
 }

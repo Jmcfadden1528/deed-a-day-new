@@ -9,12 +9,14 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<!--<p th:unless="${deeds} and ${deeds.size()}">No Deeds yet</p>-->
+<!--<h3 th:text="${todaysDeed.title}">Default title</h3>-->
 
-<p th:text="${deed}"></p>
+<p th:text="${todaysDeed.description}"></p>
 
+<form th:action="@{'deed-completed/' + ${todaysDeed.id}}">
+    <input type="submit" value="Completed" />
+</form>
 
-
-
+<!--th:href="@{'/event/google-maps/' + ${theEvent.id}}"-->
 </body>
 </html>
