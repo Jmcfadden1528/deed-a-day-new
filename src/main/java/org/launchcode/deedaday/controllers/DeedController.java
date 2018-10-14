@@ -5,9 +5,11 @@ import org.launchcode.deedaday.models.Deed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -28,6 +30,29 @@ public class DeedController {
         return "index";
 
     }
+
+
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public String displayAddForm(Model model) {
+
+        model.addAttribute("title", "Add a New Deed");
+        model.addAttribute(new Deed());
+        return "add-deed";
+    }
+
+    @RequestMapping(value="add", method = RequestMethod.POST)
+    public String processAddForm(@ModelAttribute @Valid Deed newDeed,
+                                      Errors errors, Model model) {
+
+            deedDao.save(newDeed);
+            model.addAttribute("title", "Today's Deed");
+            model.addAttribute("todaysDeed", newDeed);
+//            model.addAttribute("errors", errors);
+
+            return "index";
+        }
+
+
 
     @RequestMapping(value="deed-completed/{id}", method = RequestMethod.GET)
     public String deedCompleted(Model model, @PathVariable int id) {
